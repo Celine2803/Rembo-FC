@@ -36,6 +36,9 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
+        // return redirect()->intended('confirm.pay');
         return redirect()->intended(RouteServiceProvider::HOME);
+
+        // return redirect()->route('confirm.pay', $user->id);
     }
 }

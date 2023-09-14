@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,8 +11,11 @@ use Illuminate\Support\Facades\Hash;
 class DirectorController extends Controller
 {
     public function DirectorDashboard(){
+        $players =User::where('role','player')->count();
+        $matches=Performance::count();
+        $coach=User::where('role','coach')->get();
         
-        return view('director.index');
+        return view('director.index',compact('players','matches'));
     } //End method
 
     public function DirectorLogout(Request $request)
@@ -91,6 +95,8 @@ class DirectorController extends Controller
     public function AddPlayer(){
         return view('director.playercrud.add_player');
     }
+
+    
 
     public function StorePlayer(Request $request){
 
@@ -174,4 +180,64 @@ class DirectorController extends Controller
 
         return back();
     }
+
+    // pay
+
+    public function PayPlayer($id){
+        $user=User::findOrFail($id);
+        return view('payment.payment_player',compact('user'));
+    }
+
+    public function PlayerInformation($id) {
+        $user = User::findOrFail($id); 
+        return view('payment.player_information', compact('user'));
+    }
+
+    public function processPlayerInformation($id) {
+       
+        return redirect()->route('player.information', $id);
+    }
+
+    public function Payment($id) {
+        $user = User::findOrFail($id); 
+        return view('payment.payment', compact('user'));
+        }
+    
+        public function PaymentSuccess($id) {
+        $user = User::findOrFail($id);
+    
+        $user->notify(new EmailNotification($user));
+    
+        return view('payment.payment_success', compact('user'));
+        }
+
+    public function UpdatePay(Request $request){
+        $mid = $request->id;
+
+        User::findOrFail($mid)->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'team' => $request->team,
+        
+        ]);
+        // return redirect()->route('password.confirm');
+        return view('payment.payment');
+
+    }     
+
+    public function ConfirmPay(){
+        // $user = User::findOrFail($id);
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->phone = $request->phone;
+        // $user->team = $request->team;
+        // $user->role = 'player';
+        
+            
+           
+        // return view('director.playercrud.confirm_payment');
+    }   
+    
+    
 }

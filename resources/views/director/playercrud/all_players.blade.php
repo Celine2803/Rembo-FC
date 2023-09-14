@@ -45,7 +45,8 @@
                         <td>
                             <a href="{{ route('edit.player', $item->id)}}" class="btn btn-inverse-warning">Edit</a>
                             <a href="{{ route('softdelete.player', $item->id)}}" class="btn btn-inverse-danger">Delete</a>
-                        </td>
+                            <a href="{{ route('pay.player', $item->id)}}" class="btn btn-inverse-danger">Pay</a>
+                          </td>
                       </tr>
                       @endforeach
                     </tbody>

@@ -3,12 +3,40 @@
 @section('director')
 
 <div class="page-content">
-    <div class="page-header">
-      <div class="container-fluid">
-        <h2 class="h5 no-margin-bottom">Welcome to your Dashboard</h2>
-      </div>
+  <div class="page-header">
+    <div class="container-fluid">
+      <h2 class="h5 no-margin-bottom">Welcome to your Dashboard</h2>
     </div>
-    <section class="no-padding-top no-padding-bottom">
+  </div>
+<div class="container">
+  <!-- ... (existing sections) ... -->
+  <div class="section statistics">
+      <h2>Statistics</h2>
+      <div class="content">
+          <div class="item">
+              <img src="{{asset('assets/img/user.jpg')}}" alt="User Icon" class="stat-icon">
+              <p>Total Users: 70</p>
+          </div>
+          <div class="item">
+              <img src="{{asset('assets/img/match 1.jpg')}}" alt="Match Icon" class="stat-icon">
+              <p>Total Matches: </p>
+          </div><br>
+          <div class="item">
+              <img src="{{asset('assets/img/match 2.jpg')}}" alt="Team Icon" class="stat-icon">
+              <p>Total Teams: 2</p>
+          </div>
+          <div class="item">
+              <img src="{{asset('assets/img/match 3.jpg')}}" alt="Player Icon" class="stat-icon">
+              <p>Total Players: {{ $players }}</p>
+          </div>
+          <div class="item">
+              <img src="{{asset('assets/img/coach.jpg')}}" alt="Coach Icon" class="stat-icon">
+              <p>Total Coaches: 2</p>
+          </div>
+      </div>
+  </div>
+</div>
+    {{-- <section class="no-padding-top no-padding-bottom">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 col-sm-6">
@@ -283,7 +311,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     {{-- <section class="no-padding-bottom">
       <div class="container-fluid">
         <div class="row">
@@ -347,7 +375,7 @@
         </div>
       </div>
     </section> --}}
-    <section>
+    {{-- <section>
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-4">
@@ -358,8 +386,8 @@
                 <div class="text"><strong class="d-block">$2.145</strong><span class="d-block">Sales</span></div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4">
+          </div> --}}
+          {{-- <div class="col-lg-4">
             <div class="stats-with-chart-2 block">
               <div class="title"><strong class="d-block">Channel Sales</strong><span class="d-block">Lorem ipsum dolor sit</span></div>
               <div class="piechart chart">
@@ -367,15 +395,15 @@
                 <div class="text"><strong class="d-block">$7.784</strong><span class="d-block">Sales</span></div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4">
+          </div> --}}
+          {{-- <div class="col-lg-4">
             <div class="stats-with-chart-2 block">
               <div class="title"><strong class="d-block">Direct Sales</strong><span class="d-block">Lorem ipsum dolor sit</span></div>
               <div class="piechart chart">
                 <canvas id="pieChartHome3"></canvas>
                 <div class="text"><strong class="d-block">$4.957</strong><span class="d-block">Sales</span></div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
       </div>

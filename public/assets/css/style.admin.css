@@ -1,0 +1,33 @@
+/* ... (existing styles) ... */
+
+.statistics .content,
+.updates .content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.statistics .item,
+.updates .item {
+    flex-basis: calc(33.33% - 20px); /* Three items per row with gap */
+    padding: 10px;
+    background-color: #6a6c70;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    color:white;
+}
+
+.stat-icon,
+.update-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .statistics .item,
+    .updates .item {
+        flex-basis: calc(50% - 20px); /* Two items per row with gap on smaller screens */
+    }
+}

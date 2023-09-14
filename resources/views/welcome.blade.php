@@ -9,6 +9,7 @@
 
         <!-- Fonts & welcome-->
         <link rel="stylesheet" href={{ asset('/assets/css/style.welcome.css')}}>
+        
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
@@ -38,9 +39,15 @@
             <div class="banner">
                 <img src="https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid" alt="kick">
                 {{-- <img src="{{asset('assets/img/girls.jpg')}}"class="img-fluid" alt="kick"> --}}
-                {{-- <img src="{{ asset('img/girls.jpg') }}" class="img-fluid" alt="kick"> --}}
+                
                 <div class="navbar">
-                <img src="logo.png"class="logo">
+                    <div class="logo-container top-left">
+                        <img src="{{asset('assets/img/ball.jpg')}}" class="logo" alt="Logo">
+                    </div>
+                    <div class="links top-links"> <!-- Add the "top-links" class -->
+                        <a href="{{ route('contact') }}" class="nav-link">Contact Us</a>
+                        <a href="{{ route('about') }}" class="nav-link">About Us</a>
+                    </div>
                 </div>
                 <div class="content">
                     <h1>REMBO FC</h1>
