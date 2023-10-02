@@ -7,15 +7,17 @@ use App\Models\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DirectorController extends Controller
 {
     public function DirectorDashboard(){
         $players =User::where('role','player')->count();
         $matches=Performance::count();
-        $coach=User::where('role','coach')->get();
-        
-        return view('director.index',compact('players','matches'));
+        $coach=User::where('role','coach')->count();
+        $userCount = User::count();
+        $teams = User::whereIn('team', ['A', 'B'])->distinct()->count('team');
+        return view('director.index',compact('players','matches','userCount','teams','coach'));
     } //End method
 
     public function DirectorLogout(Request $request)
@@ -238,6 +240,15 @@ class DirectorController extends Controller
            
         // return view('director.playercrud.confirm_payment');
     }   
+
+    public function ImportMeetUp(){
+        return view('events');
+    }
     
+    public function ExportMeetUp(){
+        return Excel::download(new MeetUpsExport,'events.xlsx');
+
+        return redirect()->back();
+    }
     
 }

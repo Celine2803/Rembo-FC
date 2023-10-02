@@ -21,8 +21,8 @@
  
      <ul class="list-unstyled">
              <li class="active"><a href="{{ route('coach.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
-             <li><a href="tables.html"> <i class="icon-grid"></i>Tables </a></li>
-             <li><a href="{{ route('line.chart')}}"> <i class="fa fa-bar-chart"></i> Performance Chart </a></li>
+             <li><a href="{{ route('table2')}}"> <i class="icon-grid"></i>Tables </a></li>
+             <li><a href="{{ route('line.chart2')}}"> <i class="fa fa-bar-chart"></i> Performance Chart </a></li>
              <li><a href="{{ route('calendar.index')}}"> <i class="icon-padnote"></i>Calendar</a></li>
              {{-- <li><a href="forms.html"> <i class="icon-writing-whiteboard"></i>Email</a></li> --}}
              {{-- <li><a href="forms.html"> <i class="icon-settings"></i>Payments</a></li> --}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\AnnouncementCreated;
 use App\Notifications\IndividualAnnouncementCreated;
@@ -13,19 +14,30 @@ class AnnouncementController extends Controller
 {
     public function EmailPlayer(){
         $user = User::all();
-
+        
         return view('email',compact('user'));
     }
     public function Store(Request $request){
+
+        $selectedUserId = $request->input('user_id');
+        // dd($selectedUserId);
         
+        // Check if the selected user exists in the users table
+    $selectedUser = User::find($selectedUserId);
+
+    if (!$selectedUser) {
+        return redirect()->back()->with('error', 'Invalid user selected.');
+    }
         $announcement = Announcement::create([
             'title' => 'Exciting News',
             'description' => 'An Upcoming Event!!',
+            'user_id' => $selectedUserId,
+            
         ]);
     
         // Get the value of 'notes' from the form input
         $notes = $request->input('notes');
-        $selectedUserId = $request->input('user_id');
+        
 
         if ($request->has('send_individual') && !empty($selectedUserId)) {
             // Send individual email to the selected user
@@ -58,18 +70,7 @@ class AnnouncementController extends Controller
 
         // Handle the case when no user is selected for individual email
         return redirect()->back()->with('error', 'Please select a user for individual email.');
-        // Define the chunk size (e.g., 10 users per batch)
-        // $chunkSize = 10;
-    
-        // Process users in chunks
-        // User::chunk($chunkSize, function ($users) use ($announcement,$notes) {
-        //     foreach ($users as $user) {
-        //         $user->notify(new AnnouncementCreated($announcement,$notes));
-        //         sleep(1);
-        //     }
-        // });
-    
-        // return redirect()->back()->with('success', 'Emails sent successfully.');
+        
     }
 }
 

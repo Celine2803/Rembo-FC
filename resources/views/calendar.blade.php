@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Document</title>
+    <title>Calendar</title>
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     {{-- <title>Jquery Fullcalandar Integration with PHP and Mysql</title> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -17,12 +17,45 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+  .fc-event{
+    width:140px;
+    height:85px;
+    display:flex;
+    flex-wrap:wrap;
+    align-content: center;
+  };
+
+  /* Styles for the black button */
+.btn.btn-black {
+  background-color: black;
+  color: white;
+  padding: 10px 20px; /* Adjust padding as needed */
+  text-decoration: none; /* Remove default underline */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Hover effect (red color) */
+.btn.btn-black:hover {
+  background-color: red;
+  color: white;
+}
+
+
+</style>
 </head>
+<body>
   
   <!-- Button trigger modal -->
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Launch demo modal
+  </button>
+  <button><a href="{{ route('coach.dashboard') }}" class="btn btn-black">
+    <i class="icon-home"></i> Dashboard
+  </a>
   </button>
   
   <!-- Modal -->
@@ -49,7 +82,7 @@
   <div class='row'>
     <h3 class='text-center mt-5'>RFC CALENDAR</h3>
     <div class='col-md-11 offset-1 mt-5 mb-5'>
-     
+      
         <div id='calendar'>
 
         </div>
@@ -70,16 +103,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   <script>
     
-   
-    $(document).ready(function() {
-    $.ajaxSetup({
+    $(document).ready(function(){
+      $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    let meetup = {!! json_encode($events) !!};
-
-    $('#calendar').fullCalendar({
+      let meetup = @json($events);
+      $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -88,12 +119,47 @@
         events: meetup,
         selectable: true,
         selectHelper: true,
-        editable: true,
+        // defaultView:'agendaWeek',
         select: function(start, end, allDays) {
             // Show the modal when a selection is made
             $('#meetupModal').modal('toggle');
+
+            $('#saveBtn').click(function() {
+              let title = $('#title').val();
+              let start_date = moment(start).format('YYYY-MM-DD');
+              let end_date = moment(end).format('YYYY-MM-DD');
+
+              $.ajax({
+            url: "{{ route('calendar.store') }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                // _token: '{{ csrf_token() }}',
+                title: title,
+                start_date: start_date,
+                end_date: end_date
+            },
+            success: function(response) {
+              $('#meetupModal').modal('hide');
+              $('#calendar').fullCalendar('renderEvent', {
+                    'title': response.title,
+                    'start': response.start,
+                    'end': response.end,
+                    'color':response.color,
+                });
+            },
+            error: function(error) {
+                if (error.responseJSON.errors) {
+                    $('#titleError').html(error.responseJSON.errors.title);
+                }
+            },
+        });
+            });
         },
-        eventDrop: function(event, delta, revertFunc) {
+
+        // to drag and drop an event
+        editable: true,
+        eventDrop: function(event) {
             let id = event.id;
             let start_date = moment(event.start).format('YYYY-MM-DD');
             let end_date = moment(event.end).format('YYYY-MM-DD');
@@ -112,11 +178,11 @@
                 },
                 error: function(error) {
                     console.log(error);
-                    revertFunc();
                 },
             });
         },
-        // to remove the meetup
+
+        // to delete an event
         eventClick: function(event) {
     if (confirm('Are you sure you want to remove it')) {
         let id = event.id; // Extract the event's ID from the clicked event
@@ -134,48 +200,21 @@
         });
     }
 },
-// long event
+
+// To remove long event
+selectAllow:function(event){
+  return moment(event.start).utcOffset(false).isSame(moment(event.end).subtract(1,'second').utcOffset(false),'day');
+},
 
 
+      });
+      $("#meetupModal").on("hidden.bs.modal",function (){
+        $("#saveBtn").unbind();
+      });
+
+      // $('.fc-event').css('font-size','18px');
     });
-
-    // Handle the save button click outside the select event
-    $('#saveBtn').click(function() {
-        let title = $('#title').val();
-       let start = $('#calendar').fullCalendar('getView').start;
-        let end = $('#saveBtn').data('end');
-        let start_date = moment(start).format('YYYY-MM-DD');
-        console.log(start_date);
-        let end_date = moment(end).format('YYYY-MM-DD');
-
-        $.ajax({
-            url: "{{ route('calendar.store') }}",
-            type: "POST",
-            dataType: "json",
-            data: {
-                // _token: '{{ csrf_token() }}',
-                title: title,
-                start_date: start_date,
-                end_date: end_date
-            },
-            success: function(response) {
-                $('#meetupModal').modal('hide');
-
-                $('#calendar').fullCalendar('renderEvent', {
-                    'title': response.title,
-                    'start': response.start_date,
-                    'end': response.end_date,
-                });
-            },
-            error: function(error) {
-                if (error.responseJSON.errors) {
-                    $('#titleError').html(error.responseJSON.errors.title);
-                }
-            },
-        });
-    });
-});
-
+   
     
   </script>
   
@@ -184,3 +223,5 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
 </body>
 </html>
+
+

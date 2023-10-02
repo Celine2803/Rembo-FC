@@ -24,9 +24,16 @@
  
      <ul class="list-unstyled">
              <li class="active"><a href="{{ route('director.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
-             <li><a href="tables.html"> <i class="icon-grid"></i>Tables </a></li>
+             <li><a href="{{ route('table1')}}"> <i class="icon-grid"></i>Tables </a></li>
              <li><a href="{{ route('line.chart')}}"> <i class="fa fa-bar-chart"></i> Performance Chart </a></li>
              <li><a href="{{ route('email.player')}}"> <i class="icon-writing-whiteboard"></i>Emails </a></li>
+             <li><a href="{{ route('import.meetup')}}"> <i class="icon-grid"></i>Records </a></li>
+
+             <div class="list-inline-item logout">
+              <a id="logout" href="{{ route('profile.destroy')}}" class="nav-link">Delete Account <i class="icon-delete"></i>
+              </a>
+            </div>
+             
              {{-- <li><a href="{{ route('pay.player', $item->id)}}"> <i class="icon-settings"></i> Make Payments </a></li> --}}
  
              {{-- <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
@@ -48,8 +55,8 @@
        </a>
      </div>
   --}}
-     <div class="list-inline-item logout">
+     {{-- <div class="list-inline-item logout">
        <a id="logout" href="{{ route('profile.destroy')}}" class="nav-link">Delete Account <i class="icon-delete"></i>
        </a>
-     </div>
+     </div> --}}
    </nav>

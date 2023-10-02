@@ -23,6 +23,8 @@
     <link rel="shortcut icon" href="{{ asset('/assets/img/favicon.ico')}}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
     <link rel="stylesheet" href={{ asset('/assets/css/style.player.css')}}>
+ {{-- datatables --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -69,6 +71,14 @@
     break; 
  }
  @endif 
+</script>
+<script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(
+  function(){
+    $("#myDataTable").DataTable();
+  }
+);
 </script>
   </body>
 </html>

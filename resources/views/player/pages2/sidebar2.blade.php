@@ -4,8 +4,7 @@
     <nav id="sidebar">
      <!-- Sidebar Header-->
      <div class="sidebar-header d-flex align-items-center">
-       <div class="avatar"><img src="{{ (!empty($profileData->photo)) ? 
-         url('upload/player_images/'.$profileData->photo) : url('upload/no_image.jpg')}}" alt="..." class="img-fluid rounded-circle">
+       <div class="avatar"><img src="{{asset('assets/img/soccer.jpeg')}} " alt="soccer" class="img-fluid rounded-circle">
        </div>
        <div class="title">
          <h1 class="h5">Player</h1>
@@ -20,11 +19,15 @@
        
  
      <ul class="list-unstyled">
-             <li class="active"><a href="{{ route('player.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
-             <li><a href="tables.html"> <i class="icon-grid"></i>Tables </a></li>
-             <li><a href="{{ route('line.chart')}}"> <i class="fa fa-bar-chart"></i> Performance Chart </a></li>
-             <li><a href="forms.html"> <i class="icon-padnote"></i>Calendar </a></li>
-             <li><a href="forms.html"> <i class="icon-settings"></i>Payments</a></li>
+             {{-- <li class="active"><a href="{{ route('player.dashboard') }}"> <i class="icon-home"></i>Table </a></li> --}}
+             {{-- <li><a href="{{ route('table')}}"> <i class="icon-grid"></i>Tables </a></li> --}}
+             {{-- <li><a href="{{ route('line.chart')}}"> <i class="fa fa-bar-chart"></i> Performance Chart </a></li> --}}
+             {{-- <li><a href="forms.html"> <i class="icon-padnote"></i>Table</a></li> --}}
+             {{-- <li><a href="forms.html"> <i class="icon-settings"></i></a></li> --}}
+             <div class="list-inline-item logout">
+              {{-- <a id="logout" href="{{ route('profile.destroy')}}" class="nav-link">Delete Account <i class="icon-delete"></i> --}}
+              </a>
+            </div>
  
              {{-- <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Example dropdown </a>
                <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
@@ -45,8 +48,8 @@
        </a>
      </div> --}}
  
-     <div class="list-inline-item logout">
+     {{-- <div class="list-inline-item logout">
        <a id="logout" href="{{ route('profile.destroy')}}" class="nav-link">Delete Account <i class="icon-delete"></i>
        </a>
-     </div>
+     </div> --}}
    </nav>

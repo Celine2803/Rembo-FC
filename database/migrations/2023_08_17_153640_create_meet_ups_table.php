@@ -17,7 +17,12 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();
-            
+
+            $table->bigInteger('user_id',false,true)->unsigned()->index();
+
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             // $table->id();
             // $table->string('health');
             // $table->string('training');

@@ -30,7 +30,7 @@
           <div class="item">Win Rate: 60%</div>
       </div>
   </div>
-  <div class="dashboard-section">
+  {{-- <div class="dashboard-section">
       <h2>Upcoming Matches</h2>
       <div class="content">
           <div class="item">
@@ -44,8 +44,8 @@
               <p>Location: Umoja</p>
           </div>
       </div>
-  </div>
-  <div class="dashboard-section">
+  </div> --}}
+  {{-- <div class="dashboard-section">
       <h2>Messages</h2>
       <div class="content">
           <div class="item">
@@ -58,7 +58,7 @@
           </div>
       </div>
   </div>
-</div>
+</div> --}}
 
 {{-- <div class="page-content">
     <div class="page-header">

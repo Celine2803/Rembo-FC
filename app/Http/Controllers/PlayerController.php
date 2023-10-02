@@ -10,7 +10,7 @@ class PlayerController extends Controller
 {
     public function PlayerDashboard(){
         
-        return view('player.index2');
+        return view('table');
     } //End method
 
     public function PlayerLogout(Request $request)

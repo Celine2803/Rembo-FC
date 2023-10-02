@@ -15,15 +15,15 @@
       <div class="content">
           <div class="item">
               <img src="{{asset('assets/img/user.jpg')}}" alt="User Icon" class="stat-icon">
-              <p>Total Users: 70</p>
+              <p>Total Users:{{  $userCount }}</p>
           </div>
           <div class="item">
               <img src="{{asset('assets/img/match 1.jpg')}}" alt="Match Icon" class="stat-icon">
-              <p>Total Matches: </p>
+              <p>Total Matches:{{$matches}} </p>
           </div><br>
           <div class="item">
               <img src="{{asset('assets/img/match 2.jpg')}}" alt="Team Icon" class="stat-icon">
-              <p>Total Teams: 2</p>
+              <p>Total Teams: {{ $teams}}</p>
           </div>
           <div class="item">
               <img src="{{asset('assets/img/match 3.jpg')}}" alt="Player Icon" class="stat-icon">
@@ -31,7 +31,7 @@
           </div>
           <div class="item">
               <img src="{{asset('assets/img/coach.jpg')}}" alt="Coach Icon" class="stat-icon">
-              <p>Total Coaches: 2</p>
+              <p>Total Coaches: {{$coach}}</p>
           </div>
       </div>
   </div>

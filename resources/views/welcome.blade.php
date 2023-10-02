@@ -37,7 +37,8 @@
 
 
             <div class="banner">
-                <img src="https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid" alt="kick">
+                
+                <img src="{{asset('assets/img/stage.jpeg')}}" class="img-fluid" alt="kick">
                 {{-- <img src="{{asset('assets/img/girls.jpg')}}"class="img-fluid" alt="kick"> --}}
                 
                 <div class="navbar">

@@ -1,6 +1,5 @@
-@extends('player.player_dashboard')
-
-@section('player')
+@extends('coach.coach_dashboard');
+@section('coach')
 
 <div class="page-content">
     <div class="page-header">
@@ -30,6 +29,5 @@
                     @endforeach
                 </tbody>
             </table>
-</div>
 </div>
 @endsection

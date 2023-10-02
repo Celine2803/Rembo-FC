@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\TableController;
+use App\Http\Controllers\Chart2Controller;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\Table1Controller;
+use App\Http\Controllers\Table2Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DirectorController;
@@ -33,9 +37,15 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->name('main');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,6 +72,7 @@ Route::middleware(['auth','role:director'])->group(function () {
 
     Route::post('/director/update/password', [DirectorController::class, 'DirectorUpdatePassword'])
     ->name('director.update.password');
+    
 
     Route::get('/director/logout', [DirectorController::class, 'DirectorLogout'])
     ->name('director.logout');
@@ -92,6 +103,10 @@ Route::middleware(['auth','role:director'])->group(function () {
         Route::get('/player/{id}/payment/success', 'PaymentSuccess')->name('payment.success');
 
         Route::get('/payment/receipt/{id}', 'generateReceipt')->name('payment.receipt');
+
+        Route::get('/export/meetup','ExportMeetUp')->name('export.meetup');
+        Route::get('/import/meetup','ImportMeetUp')->name('import.meetup');
+
 
         
    
@@ -135,7 +150,7 @@ Route::get('/coach/dashboard', [CoachController::class, 'CoachDashboard'])
 });
 
 Route::middleware(['auth','role:player'])->group(function () {
-    Route::get('/player/dashboard', [PlayerController::class, 'PlayerDashboard'])
+    Route::get('/table', [PlayerController::class, 'PlayerDashboard'])
     ->name('player.dashboard');
     
     
@@ -154,9 +169,21 @@ Route::middleware(['auth','role:player'])->group(function () {
         Route::get('/player/logout', [PlayerController::class, 'PlayerLogout'])
         ->name('player.logout');
     });
-
+  
+    
+    // chart routes
 Route::get('/linechart', [ChartController::class, 'LineChart'])
 ->name('line.chart');
+Route::get('/linechart2', [Chart2Controller::class, 'LineChart2'])
+->name('line.chart2');
+
+// table routes
+Route::get('/table', [TableController::class, 'Table'])
+->name('table');
+Route::get('/table1', [Table1Controller::class, 'Table1'])
+->name('table1');
+Route::get('/table2', [Table2Controller::class, 'Table2'])
+->name('table2');
 
 // calendar routes
 Route::get('/calendar/index', [CalendarController::class, 'CalendarIndex'])

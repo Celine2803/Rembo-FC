@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\MeetUp;
+use App\Models\Announcement;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,4 +41,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function announcements() {
+        return $this->hasMany(Announcement::class);
+    }
+    public function meetups(): HasMany
+    {
+        return $this->hasMany(MeetUp::class);
+    }
 }

@@ -15,10 +15,12 @@
                             <label for="exampleInputUsername1" class="form-label">Select Player:</label>
                             <select name="user_id" id="user_id" class="form-select">
                                 @foreach($user as $individualUser)
-                                    <option value="{{ $individualUser->id }}">{{ $individualUser->name }}</option>
+                                    <option value="{{ $individualUser->id }}">{{ $individualUser->name }} (ID: {{ $individualUser->id }})</option>
                                 @endforeach
                             </select>
                         </div>
+
+                        
 
                         <div class="mb-3">
                             <label for="exampleInputTextarea" class="form-label">Email Message:</label>
@@ -31,6 +33,7 @@
 
                         <button type="submit"name="send_individual" class="btn btn-primary me-2">Send</button>
                     </form>
+                    <br>
                     {{-- Sending email to all players --}}
                     <h6 class="card-title">Email Players</h6>
 
